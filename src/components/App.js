@@ -1,13 +1,18 @@
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useMemo } from "react";
 
 import PopupWithForm from "./PopupWithForm";
 // import ImagePopup from './ImagePopup'
 import "../App.css";
+import api from "../utils/Api";
 
 function App() {
+  const [cards, setCards] = useState([])
+  const [userName, setUserName] = useState()
+  const [userDescription, setUserDescription ] = useState()
+  const [userAvatar, setUserAvatar] = useState()
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -16,6 +21,15 @@ function App() {
     setIsAddPlacePopupOpen(false)
     setIsEditAvatarPopupOpen(false)
   }, [])
+
+  useMemo(() => {
+    api.getProfileInformation().then(data => {
+      console.log(data)
+    })
+  }, [])
+
+
+  
   return (
     <div className="page">
       <Header></Header>

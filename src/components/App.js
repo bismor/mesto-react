@@ -1,8 +1,7 @@
 
-import logo from '../images/logo.svg';
-import avatar from '../images/avatar.png'
-import pencil from '../images/pencil.svg'
-import plus from '../images/plus.svg'
+import Header from './Header'
+import Main from './Main'
+import Footer from './Footer'
 import close from '../images/Close.png'
 import '../App.css';
 
@@ -10,39 +9,9 @@ function App() {
   return (
     <body className='body'>
       <div className="page">
-        <header className="header">
-          <img className="header__logo" src={logo} alt="Логотип сайта" />
-        </header>
-
-        <main className="main">
-          <section className="profile">
-            <div className="info">
-              <button type="button" className="profile__buttonpict">
-                <div className="profile__changeavatar"></div>
-                <img className="profile__avatar" src={avatar} alt="Аватар" />
-              </button>
-              <div className="profile__info">
-                <h1 className="profile__title">Жак-Ив Кусто</h1>
-                <button type="button" className="profile__button">
-                  <img className="profile__pencil" src={pencil} alt="Редактировать" />
-                </button>
-                <p className="profile__subtitle">Исследователь океана</p>
-              </div>
-            </div>
-            <button type="button" className="button">
-              <img className="profile__plus" src={plus} alt="добавить" />
-            </button>
-          </section>
-          <section className="mesto">
-            <ul className="mesto__ul">
-
-            </ul>
-          </section>
-        </main>
-
-        <footer className="footer">
-          <h3 className="footer__text">© 2020 Mesto Russia</h3>
-        </footer>
+        <Header></Header>
+        <Main></Main>
+        <Footer></Footer>
 
         <div className="popup profilePopup">
           <div className="popup__container">

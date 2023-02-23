@@ -23,8 +23,16 @@ function App() {
   }, [])
 
   useMemo(() => {
-    api.getProfileInformation().then(data => {
-      console.log(data)
+    api.getProfileInformation().then((data) => {
+      setUserAvatar(() => {
+        return data.avatar
+      })
+      setUserDescription(() => {
+        return data.about
+      })
+      setUserName(() => {
+        return data.name
+      })
     })
   }, [])
 
@@ -37,6 +45,9 @@ function App() {
         onEditAvatar={setIsEditAvatarPopupOpen}
         onEditProfile={setIsEditProfilePopupOpen}
         onAddPlace={setIsAddPlacePopupOpen}
+        onUserAvatar={userAvatar}
+        onUserDescription={userDescription}
+        onUserName={userName}
       />
       <Footer></Footer>
 

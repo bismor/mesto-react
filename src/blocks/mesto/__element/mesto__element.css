@@ -1,0 +1,9 @@
+.mesto__element {
+  border-radius: 10px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 25px;
+  position: relative;
+}

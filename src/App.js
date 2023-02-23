@@ -1,4 +1,8 @@
-import logo from './logo.svg';
+import logo from './images/logo.svg';
+import avatar from './images/avatar.png'
+import pencil from './images/pencil.svg'
+import plus from './images/plus.svg'
+import close from './images/Close.png'
 import './App.css';
 
 function App() {
@@ -6,7 +10,7 @@ function App() {
     <body className='body'>
       <div className="page">
         <header className="header">
-          <img className="header__logo" src="<%=require('./images/logo.svg')%>" alt="Логотип сайта" />
+          <img className="header__logo" src={logo} alt="Логотип сайта" />
         </header>
 
         <main className="main">
@@ -14,18 +18,18 @@ function App() {
             <div className="info">
               <button type="button" className="profile__buttonpict">
                 <div className="profile__changeavatar"></div>
-                <img className="profile__avatar" src="<%=require('./images/avatar.png')%>" alt="Аватар" />
+                <img className="profile__avatar" src={avatar} alt="Аватар" />
               </button>
               <div className="profile__info">
                 <h1 className="profile__title">Жак-Ив Кусто</h1>
                 <button type="button" className="profile__button">
-                  <img className="profile__pencil" src="<%=require('./images/pencil.svg')%>" alt="Редактировать" />
+                  <img className="profile__pencil" src={pencil} alt="Редактировать" />
                 </button>
                 <p className="profile__subtitle">Исследователь океана</p>
               </div>
             </div>
             <button type="button" className="button">
-              <img className="profile__plus" src="<%=require('./images/plus.svg')%>" alt="добавить" />
+              <img className="profile__plus" src={plus} alt="добавить" />
             </button>
           </section>
           <section className="mesto">
@@ -42,7 +46,7 @@ function App() {
         <div className="popup profilePopup">
           <div className="popup__container">
             <button type="button" className="popup__close">
-              <img className="popup__img" src="<%=require('./images/Close.png')%>" alt="Закрыть"/>
+              <img className="popup__img" src={close} alt="Закрыть"/>
             </button>
             <h2 className="popup__title">Редактировать профиль</h2>
             <form name="profile__form" className="popup__form" novalidate>
@@ -62,7 +66,7 @@ function App() {
         <div className="popup cardPopup">
           <div className="popup__container popup__contcard">
             <button type="button" className="popup__close">
-              <img className="popup__img" src="<%=require('./images/Close.png')%>" alt="Закрыть"/>
+              <img className="popup__img" src={close} alt="Закрыть"/>
             </button>
             <h2 className="popup__title">Новое место</h2>
             <form name="card-form" className="popup__form">
@@ -82,7 +86,7 @@ function App() {
         <div className="popup imagePopup">
           <div className="popup__picture">
             <button type="button" className="popup__close">
-              <img className="popup__img" id="closepict" src="<%=require('./images/Close.png')%>" alt="Закрыть"/>
+              <img className="popup__img" id="closepict" src={close} alt="Закрыть"/>
             </button>
             <img className="popup__screen" src="#"
               alt="Архыз" />
@@ -93,7 +97,7 @@ function App() {
         <div className="popup deleteCardPopup">
           <div className="popup__container popup__contcard">
             <button type="button" className="popup__close">
-              <img className="popup__img" src="<%=require('./images/Close.png')%>" alt="Закрыть"/>
+              <img className="popup__img" src={close} alt="Закрыть"/>
             </button>
             <h2 className="popup__title">Вы уверены?</h2>
             <form name="card-form" className="popup__form">
@@ -105,7 +109,7 @@ function App() {
         <div className="popup changeAvatar">
           <div className="popup__container popup__contcard">
             <button type="button" className="popup__close">
-              <img className="popup__img" src="<%=require('./images/Close.png')%>" alt="Закрыть"/>
+              <img className="popup__img" src={close} alt="Закрыть"/>
             </button>
             <h2 className="popup__title">Обновить аватар</h2>
             <form name="card-form" className="popup__form">

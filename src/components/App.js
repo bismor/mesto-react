@@ -1,9 +1,10 @@
-import logo from './images/logo.svg';
-import avatar from './images/avatar.png'
-import pencil from './images/pencil.svg'
-import plus from './images/plus.svg'
-import close from './images/Close.png'
-import './App.css';
+
+import logo from '../images/logo.svg';
+import avatar from '../images/avatar.png'
+import pencil from '../images/pencil.svg'
+import plus from '../images/plus.svg'
+import close from '../images/Close.png'
+import '../App.css';
 
 function App() {
   return (

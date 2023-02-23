@@ -3,6 +3,7 @@ import Header from './Header'
 import Main from './Main'
 import Footer from './Footer'
 import close from '../images/Close.png'
+import PopupWithForm from './PopupWithForm'
 // import ImagePopup from './ImagePopup'
 import '../App.css';
 
@@ -16,6 +17,12 @@ function App() {
         handleAddPlaceClick={() => document.querySelector('.cardPopup').classList.add("popup_opened")}
       />
       <Footer></Footer>
+
+      <PopupWithForm
+        title=""
+        name=""
+        children=""
+      />
 
       <div className="popup profilePopup">
         <div className="popup__container">

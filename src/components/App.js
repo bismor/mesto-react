@@ -1,107 +1,143 @@
+import Header from "./Header";
+import Main from "./Main";
+import Footer from "./Footer";
+import { useCallback, useState } from "react";
 
-import Header from './Header'
-import Main from './Main'
-import Footer from './Footer'
-import close from '../images/Close.png'
-import PopupWithForm from './PopupWithForm'
+import PopupWithForm from "./PopupWithForm";
 // import ImagePopup from './ImagePopup'
-import '../App.css';
+import "../App.css";
 
 function App() {
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const closeAllPopups = useCallback(() => {
+    setIsEditProfilePopupOpen(false)
+    setIsAddPlacePopupOpen(false)
+    setIsEditAvatarPopupOpen(false)
+  }, [])
   return (
     <div className="page">
       <Header></Header>
       <Main
-        handleEditAvatarClick={() => document.querySelector('.changeAvatar').classList.add("popup_opened")}
-        handleEditProfileClick={() => document.querySelector('.profilePopup').classList.add("popup_opened")}
-        handleAddPlaceClick={() => document.querySelector('.cardPopup').classList.add("popup_opened")}
+        onEditAvatar={setIsEditAvatarPopupOpen}
+        onEditProfile={setIsEditProfilePopupOpen}
+        onAddPlace={setIsAddPlacePopupOpen}
       />
       <Footer></Footer>
 
       <PopupWithForm
-        title=""
-        name=""
-        children=""
-      />
-
-      <div className="popup profilePopup">
-        <div className="popup__container">
-          <button type="button" className="popup__close">
-            <img className="popup__img" src={close} alt="Закрыть"/>
+        title="Редактировать профиль"
+        name="profilePopup"
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
+      >
+        <>
+          <section className="popup__section">
+            <input
+              type="text"
+              name="name"
+              className="popup__text popup__name"
+              placeholder="Введите имя"
+              required
+              minLength={2}
+              maxLength={40}
+            />
+            <span className="popup__input-error"></span>
+          </section>
+          <section className="popup__section">
+            <input
+              type="text"
+              name="about"
+              className="popup__text popup__job"
+              placeholder="Введите профессию"
+              required
+              minLength={2}
+              maxLength={200}
+            />
+            <span className="popup__input-error"></span>
+          </section>
+          <button type="submit" id="saveprofile" className="popup__button">
+            Сохранить
           </button>
-          <h2 className="popup__title">Редактировать профиль</h2>
-          <form name="profile__form" className="popup__form" noValidate>
-            <section className="popup__section">
-              <input type="text" name="name" className="popup__text popup__name" placeholder="Введите имя" required minLength={2} maxLength={40}/>
-              <span className="popup__input-error"></span>
-            </section>
-            <section className="popup__section">
-              <input type="text" name="about" className="popup__text popup__job" placeholder="Введите профессию" required minLength={2} maxLength={200}/>
-              <span className="popup__input-error"></span>
-            </section>
-            <button type="submit" id="saveprofile" className="popup__button">Сохранить</button>
-          </form>
-        </div>
-      </div>
+        </>
+      </PopupWithForm>
 
-      <div className="popup cardPopup">
+      <PopupWithForm
+        title="Новое место"
+        name="cardPopup"
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
+      >
+        <>
+          <section className="popup__section">
+            <input
+              type="text"
+              name="name"
+              className="popup__text popup__name"
+              placeholder="Название"
+              required
+              minLength={2}
+              maxLength={30}
+            />
+            <span className="popup__input-error"></span>
+          </section>
+          <section className="popup__section">
+            <input
+              type="url"
+              name="about"
+              className="popup__text popup__job"
+              placeholder="Ссылка на картинку"
+              required
+            />
+            <span className="popup__input-error"></span>
+          </section>
+          <button type="submit" id="addpicture" className="popup__button">
+            Сохранить
+          </button>
+        </>
+      </PopupWithForm>
+
+      <PopupWithForm
+        title="Обновить аватар"
+        name="changeAvatar"
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
+      >
+        <>
+          <section className="popup__section">
+            <input
+              type="url"
+              name="avatar"
+              className="popup__text popup__job"
+              placeholder="Ссылка на картинку"
+              required
+            />
+            <span className="popup__input-error"></span>
+          </section>
+          <button
+            type="submit"
+            id="changeavatarsubmit"
+            className="popup__button"
+          >
+            Сохранить
+          </button>
+        </>
+      </PopupWithForm>
+
+      {/* <div className="popup deleteCardPopup">
         <div className="popup__container popup__contcard">
           <button type="button" className="popup__close">
-            <img className="popup__img" src={close} alt="Закрыть"/>
-          </button>
-          <h2 className="popup__title">Новое место</h2>
-          <form name="card-form" className="popup__form">
-            <section className="popup__section">
-              <input type="text" name="name" className="popup__text popup__name" placeholder="Название" required minLength={2} maxLength={30}/>
-              <span className="popup__input-error"></span>
-            </section>
-            <section className="popup__section">
-              <input type="url" name="about" className="popup__text popup__job" placeholder="Ссылка на картинку" required/>
-              <span className="popup__input-error"></span>
-            </section>
-            <button type="submit" id="addpicture" className="popup__button">Сохранить</button>
-          </form>
-        </div>
-      </div>
-
-      <div className="popup deleteCardPopup">
-        <div className="popup__container popup__contcard">
-          <button type="button" className="popup__close">
-            <img className="popup__img" src={close} alt="Закрыть"/>
+            <img className="popup__img" src={close} alt="Закрыть" />
           </button>
           <h2 className="popup__title">Вы уверены?</h2>
           <form name="card-form" className="popup__form">
-            <button type="submit" id="" className="popup__button">Да</button>
+            <button type="submit" id="" className="popup__button">
+              Да
+            </button>
           </form>
         </div>
-      </div>
-
-      <div className="popup changeAvatar">
-        <div className="popup__container popup__contcard">
-          <button type="button" className="popup__close">
-            <img className="popup__img" src={close} alt="Закрыть"/>
-          </button>
-          <h2 className="popup__title">Обновить аватар</h2>
-          <form name="card-form" className="popup__form">
-            <section className="popup__section">
-              <input type="url" name="avatar" className="popup__text popup__job" placeholder="Ссылка на картинку" required/>
-              <span className="popup__input-error"></span>
-            </section>
-            <button type="submit" id="changeavatarsubmit" className="popup__button">Сохранить</button>
-          </form>
-        </div>
-      </div>
-
-      <div className="popup imagePopup">
-        <div className="popup__picture">
-          <button type="button" className="popup__close">
-            <img className="popup__img" id="closepict" src={close} alt="Закрыть"/>
-          </button>
-          <img className="popup__screen" src="#"
-            alt="Архыз" />
-          <h2 className="popup__subname"></h2>
-        </div>
-      </div>
+      </div> */}
     </div>
   );
 }

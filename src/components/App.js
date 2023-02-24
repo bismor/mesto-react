@@ -11,9 +11,9 @@ import api from "../utils/Api";
 
 function App() {
   const [cards, setCards] = useState([]);
-  const [userName, setUserName] = useState('');
-  const [userDescription, setUserDescription] = useState('');
-  const [userAvatar, setUserAvatar] = useState('');
+  const [userName, setUserName] = useState("");
+  const [userDescription, setUserDescription] = useState("");
+  const [userAvatar, setUserAvatar] = useState("");
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -21,7 +21,7 @@ function App() {
 
   const handleCardClick = useCallback((cardLink) => {
     setSelectedCard(cardLink);
-    console.log("call")
+    console.log("call");
   }, []);
 
   const closeAllPopups = useCallback(() => {
@@ -90,6 +90,7 @@ function App() {
         name="profilePopup"
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
+        buttonText="Сохранить"
       >
         <>
           <section className="popup__section">
@@ -116,9 +117,6 @@ function App() {
             />
             <span className="popup__input-error"></span>
           </section>
-          <button type="submit" id="saveprofile" className="popup__button">
-            Сохранить
-          </button>
         </>
       </PopupWithForm>
 
@@ -127,6 +125,7 @@ function App() {
         name="cardPopup"
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
+        buttonText="Сохранить"
       >
         <>
           <section className="popup__section">
@@ -151,9 +150,6 @@ function App() {
             />
             <span className="popup__input-error"></span>
           </section>
-          <button type="submit" id="addpicture" className="popup__button">
-            Сохранить
-          </button>
         </>
       </PopupWithForm>
 
@@ -162,6 +158,7 @@ function App() {
         name="changeAvatar"
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
+        buttonText="Сохранить"
       >
         <>
           <section className="popup__section">
@@ -174,13 +171,6 @@ function App() {
             />
             <span className="popup__input-error"></span>
           </section>
-          <button
-            type="submit"
-            id="changeavatarsubmit"
-            className="popup__button"
-          >
-            Сохранить
-          </button>
         </>
       </PopupWithForm>
 

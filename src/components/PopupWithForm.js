@@ -1,7 +1,7 @@
 import close from "../images/Close.png";
 import { useMemo } from "react";
 
-function PopupWithForm({ title, name, children, isOpen, onClose }) {
+function PopupWithForm({ title, name, children, isOpen, onClose, buttonText }) {
   const popUpClassName = useMemo(() => {
     const baseClasses = `popup popup_type_${name}`;
     return isOpen ? `${baseClasses} popup_opened` : baseClasses;
@@ -16,6 +16,9 @@ function PopupWithForm({ title, name, children, isOpen, onClose }) {
         <h2 className="popup__title">{title}</h2>
         <form name={name} className="popup__form" noValidate>
           {children}
+          <button type="submit" className="popup__button">
+            {buttonText}
+          </button>
         </form>
       </div>
     </div>

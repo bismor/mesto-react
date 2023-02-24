@@ -11,13 +11,13 @@ import api from "../utils/Api";
 
 function App() {
   const [cards, setCards] = useState([]);
-  const [userName, setUserName] = useState();
-  const [userDescription, setUserDescription] = useState();
-  const [userAvatar, setUserAvatar] = useState();
+  const [userName, setUserName] = useState('');
+  const [userDescription, setUserDescription] = useState('');
+  const [userAvatar, setUserAvatar] = useState('');
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState();
+  const [selectedCard, setSelectedCard] = useState(null);
 
   const handleCardClick = useCallback((cardLink) => {
     setSelectedCard(cardLink);
@@ -28,7 +28,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
-    setSelectedCard();
+    setSelectedCard(null);
   }, []);
 
   useEffect(() => {

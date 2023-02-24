@@ -1,6 +1,6 @@
 function Card({ card, onCardClick }) {
   function handleClick() {
-    onCardClick(card.link);
+    onCardClick(card.link, );
   }
 
   return (

@@ -5,57 +5,59 @@ import Card from "./Card";
 import { useCallback, useState, useEffect } from "react";
 
 import PopupWithForm from "./PopupWithForm";
-import ImagePopup from './ImagePopup'
+import ImagePopup from "./ImagePopup";
 import "../App.css";
 import api from "../utils/Api";
 
 function App() {
-  const [cards, setCards] = useState([])
-  const [userName, setUserName] = useState()
-  const [userDescription, setUserDescription ] = useState()
-  const [userAvatar, setUserAvatar] = useState()
+  const [cards, setCards] = useState([]);
+  const [userName, setUserName] = useState();
+  const [userDescription, setUserDescription] = useState();
+  const [userAvatar, setUserAvatar] = useState();
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState(false)
+  const [selectedCard, setSelectedCard] = useState();
 
-  const handleCardClick  = useCallback(() =>
-    setSelectedCard(false)
-  )
+  const handleCardClick = useCallback((cardLink) => {
+    setSelectedCard(cardLink);
+    console.log("call")
+  }, []);
 
   const closeAllPopups = useCallback(() => {
-    setIsEditProfilePopupOpen(false)
-    setIsAddPlacePopupOpen(false)
-    setIsEditAvatarPopupOpen(false)
-    setSelectedCard(false)
-  }, [])
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setSelectedCard();
+  }, []);
 
   useEffect(() => {
     api.getProfileInformation().then((data) => {
       setUserAvatar(() => {
-        return data.avatar
-      })
+        return data.avatar;
+      });
       setUserDescription(() => {
-        return data.about
-      })
+        return data.about;
+      });
       setUserName(() => {
-        return data.name
-      })
-    })
-  }, [])
-
+        return data.name;
+      });
+    });
+  }, []);
 
   useEffect(() => {
     const getCardsData = async () => {
       const cards = await api.getInitialCards();
 
-      setCards(() => cards.map((item) => ({
-        likes: item.likes.length,
-        name: item.name,
-        link: item.link,
-        id: item._id
-      })));
-    }
+      setCards(() =>
+        cards.map((item) => ({
+          likes: item.likes.length,
+          name: item.name,
+          link: item.link,
+          id: item._id,
+        }))
+      );
+    };
 
     getCardsData();
   }, []);
@@ -72,7 +74,13 @@ function App() {
         onUserName={userName}
       >
         <>
-          {cards.map((cardData) => <Card key={cardData.id} card={cardData}></Card>)}
+          {cards.map((cardData) => (
+            <Card
+              key={cardData.id}
+              card={cardData}
+              onCardClick={handleCardClick}
+            ></Card>
+          ))}
         </>
       </Main>
       <Footer></Footer>
@@ -176,13 +184,7 @@ function App() {
         </>
       </PopupWithForm>
 
-      <ImagePopup
-        onClose={closeAllPopups}
-        card={selectedCard}
-      >
-        
-      </ImagePopup>
-
+      <ImagePopup onClose={closeAllPopups} card={selectedCard}></ImagePopup>
     </div>
   );
 }

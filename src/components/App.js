@@ -1,10 +1,11 @@
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import { useCallback, useState, useMemo } from "react";
+import Card from "./Card";
+import { useCallback, useState, useEffect } from "react";
 
 import PopupWithForm from "./PopupWithForm";
-// import ImagePopup from './ImagePopup'
+import ImagePopup from './ImagePopup'
 import "../App.css";
 import api from "../utils/Api";
 
@@ -16,13 +17,20 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(false)
+
+  const handleCardClick  = useCallback(() =>
+    setSelectedCard(false)
+  )
+
   const closeAllPopups = useCallback(() => {
     setIsEditProfilePopupOpen(false)
     setIsAddPlacePopupOpen(false)
     setIsEditAvatarPopupOpen(false)
+    setSelectedCard(false)
   }, [])
 
-  useMemo(() => {
+  useEffect(() => {
     api.getProfileInformation().then((data) => {
       setUserAvatar(() => {
         return data.avatar
@@ -37,7 +45,21 @@ function App() {
   }, [])
 
 
-  
+  useEffect(() => {
+    const getCardsData = async () => {
+      const cards = await api.getInitialCards();
+
+      setCards(() => cards.map((item) => ({
+        likes: item.likes.length,
+        name: item.name,
+        link: item.link,
+        id: item._id
+      })));
+    }
+
+    getCardsData();
+  }, []);
+
   return (
     <div className="page">
       <Header></Header>
@@ -48,7 +70,11 @@ function App() {
         onUserAvatar={userAvatar}
         onUserDescription={userDescription}
         onUserName={userName}
-      />
+      >
+        <>
+          {cards.map((cardData) => <Card key={cardData.id} card={cardData}></Card>)}
+        </>
+      </Main>
       <Footer></Footer>
 
       <PopupWithForm
@@ -150,19 +176,13 @@ function App() {
         </>
       </PopupWithForm>
 
-      {/* <div className="popup deleteCardPopup">
-        <div className="popup__container popup__contcard">
-          <button type="button" className="popup__close">
-            <img className="popup__img" src={close} alt="Закрыть" />
-          </button>
-          <h2 className="popup__title">Вы уверены?</h2>
-          <form name="card-form" className="popup__form">
-            <button type="submit" id="" className="popup__button">
-              Да
-            </button>
-          </form>
-        </div>
-      </div> */}
+      <ImagePopup
+        onClose={closeAllPopups}
+        card={selectedCard}
+      >
+        
+      </ImagePopup>
+
     </div>
   );
 }

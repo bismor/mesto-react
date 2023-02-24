@@ -2,7 +2,7 @@ import plus from '../images/plus.svg'
 import pencil from '../images/pencil.svg'
 // import avatar from '../images/avatar.png'
 
-function Main ({onEditAvatar, onEditProfile, onAddPlace, onUserAvatar, onUserDescription, onUserName}) {
+function Main ({onEditAvatar, onEditProfile, onAddPlace, onUserAvatar, onUserDescription, onUserName, children}) {
   return (
     <main className="main">
       <section className="profile">
@@ -25,7 +25,7 @@ function Main ({onEditAvatar, onEditProfile, onAddPlace, onUserAvatar, onUserDes
       </section>
       <section className="mesto">
         <ul className="mesto__ul">
-
+          {children}
         </ul>
       </section>
     </main>

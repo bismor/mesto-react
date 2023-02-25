@@ -19,9 +19,8 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
 
-  const handleCardClick = useCallback((cardLink) => {
-    setSelectedCard(cardLink);
-    console.log("call");
+  const handleCardClick = useCallback((CardInfo) => {
+    setSelectedCard(CardInfo);
   }, []);
 
   const closeAllPopups = useCallback(() => {
@@ -32,7 +31,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    api.getProfileInformation().then((data) => {
+    api.getProfileInformation()
+    .then((data) => {
       setUserAvatar(() => {
         return data.avatar;
       });
@@ -42,13 +42,15 @@ function App() {
       setUserName(() => {
         return data.name;
       });
-    });
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    })
   }, []);
 
   useEffect(() => {
     const getCardsData = async () => {
       const cards = await api.getInitialCards();
-
       setCards(() =>
         cards.map((item) => ({
           likes: item.likes.length,
@@ -58,7 +60,6 @@ function App() {
         }))
       );
     };
-
     getCardsData();
   }, []);
 

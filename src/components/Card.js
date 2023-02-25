@@ -1,6 +1,7 @@
 function Card({ card, onCardClick }) {
   function handleClick() {
-    onCardClick(card.link, );
+    const cardInfo={link: card.link, name: card.name}
+    onCardClick(cardInfo);
   }
 
   return (

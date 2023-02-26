@@ -49,17 +49,21 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const getCardsData = async () => {
-      const cards = await api.getInitialCards();
-      setCards(() =>
-        cards.map((item) => ({
-          likes: item.likes.length,
-          name: item.name,
-          link: item.link,
-          id: item._id,
-        }))
-      );
-    };
+    const getCardsData = async () =>  {
+      try {
+        const cards = await api.getInitialCards();
+        setCards(() =>
+          cards.map((item) => ({
+            likes: item.likes.length,
+            name: item.name,
+            link: item.link,
+            id: item._id,
+          }))
+        );
+      } catch(err) {
+        console.log(err);
+      }
+    }
     getCardsData();
   }, []);
 

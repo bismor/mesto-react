@@ -4,9 +4,9 @@ import { useMemo } from "react";
 function ImagePopup({ onClose, card }) {
   const popUpClassName = useMemo(() => {
     const baseClasses = `popup imagePopup`;
-    return (card != null) ? `${baseClasses} popup_opened` : baseClasses;
+    return card != null ? `${baseClasses} popup_opened` : baseClasses;
   }, [card]);
-  
+
   return (
     <div className={popUpClassName}>
       <div className="popup__picture">

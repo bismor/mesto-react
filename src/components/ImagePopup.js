@@ -1,12 +1,14 @@
 import closeIcon from "../images/Close.png";
+import { useMemo } from "react";
 
-function ImagePopup({onClose, card}) {
-  if (!card) {
-    return null
-  }
+function ImagePopup({ onClose, card }) {
+  const popUpClassName = useMemo(() => {
+    const baseClasses = `popup imagePopup`;
+    return (card != null) ? `${baseClasses} popup_opened` : baseClasses;
+  }, [card]);
   
   return (
-    <div className='popup imagePopup popup_opened'>
+    <div className={popUpClassName}>
       <div className="popup__picture">
         <button type="button" className="popup__close" onClick={onClose}>
           <img
@@ -16,8 +18,8 @@ function ImagePopup({onClose, card}) {
             alt="Закрыть"
           />
         </button>
-        <img className="popup__screen" src={card.link} alt={card.name} />
-        <h2 className="popup__subname">{card.name}</h2>
+        <img className="popup__screen" src={card?.link} alt={card?.name} />
+        <h2 className="popup__subname">{card?.name}</h2>
       </div>
     </div>
   );

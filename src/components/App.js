@@ -2,7 +2,7 @@ import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import Card from "./Card";
-import CurrentUserContext from '../contexts/CurrentUserContext'
+import {CurrentUserContext} from "../contexts/CurrentUserContext"
 import { useCallback, useState, useEffect } from "react";
 
 import PopupWithForm from "./PopupWithForm";
@@ -79,7 +79,7 @@ function App() {
   }, []);
 
   return (
-    <CurrentUserContext.Provider>
+    <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Header></Header>
         <Main

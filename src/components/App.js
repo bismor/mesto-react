@@ -3,7 +3,6 @@ import Main from "./Main";
 import Footer from "./Footer";
 import Card from "./Card";
 import {CurrentUserContext} from "../contexts/CurrentUserContext"
-import {CardContext} from "../contexts/CardContext"
 import React, { useCallback, useState, useEffect } from "react";
 
 import PopupWithForm from "./PopupWithForm";

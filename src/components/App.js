@@ -48,10 +48,11 @@ function App() {
         const cards = await api.getInitialCards();
         setCards(() =>
           cards.map((item) => ({
-            likes: item.likes.length,
+            likes: item.likes,
             name: item.name,
             link: item.link,
             id: item._id,
+            owner: item.owner
           }))
         );
       } catch(err) {

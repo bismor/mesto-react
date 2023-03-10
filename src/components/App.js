@@ -101,42 +101,7 @@ function App() {
         <EditProfilePopup
          isOpen={isEditProfilePopupOpen}
          onClose={closeAllPopups}
-        /> 
-        {/* Редактировать профиль */}
-        {/* <PopupWithForm
-          title="Редактировать профиль"
-          name="profilePopup"
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-          buttonText="Сохранить"
-        >
-          <>
-            <section className="popup__section">
-              <input
-                type="text"
-                name="name"
-                className="popup__text popup__name"
-                placeholder="Введите имя"
-                required
-                minLength={2}
-                maxLength={40}
-              />
-              <span className="popup__input-error"></span>
-            </section>
-            <section className="popup__section">
-              <input
-                type="text"
-                name="about"
-                className="popup__text popup__job"
-                placeholder="Введите профессию"
-                required
-                minLength={2}
-                maxLength={200}
-              />
-              <span className="popup__input-error"></span>
-            </section>
-          </>
-        </PopupWithForm> */}
+        />
 
         {/* новая карточка */}
         <PopupWithForm

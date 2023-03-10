@@ -55,20 +55,22 @@ function App() {
   }, []);
 
   function handleCardLike(card) {
-    // Снова проверяем, есть ли уже лайк на этой карточке
-    // Отправляем запрос в API и получаем обновлённые данные карточки
     api.addLikeCard(card.id).then((newCard) => {
       setCards((state) => state.map((c) => c.id === card.id ? newCard : c));
     });
   }  
 
   function handleCardDisLike(card) {
-    // Снова проверяем, есть ли уже лайк на этой карточке
-    // Отправляем запрос в API и получаем обновлённые данные карточки
     api.removeLikeCard(card.id).then((newCard) => {
       setCards((state) => state.map((c) => c.id === card.id ? newCard : c));
     });
   }  
+
+  function handleCardDelete(card) {
+    api.deleteCardServer(card.id).then((newCard) => {
+      setCards((state) => state.map((c) => c.id === card.id ? newCard : c));
+    });
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -87,6 +89,7 @@ function App() {
                 onCardClick={handleCardClick}
                 onCardLike={handleCardLike}
                 onCarDislike={handleCardDisLike}
+                onCardDelete={handleCardDelete}
               ></Card>
             ))}
           </>

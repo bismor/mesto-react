@@ -50,6 +50,23 @@ class Api {
     .then(this._resToJSON)
     .then(this.fixIdProperty);
   }
+
+  deleteCardServer(id) {
+    return fetch ("https://mesto.nomoreparties.co/v1/cohort-57/cards/"+id, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then(this._resToJSON)
+    .then(this.fixIdProperty);
+  }
+
+  addCard(data) {
+    return fetch("https://mesto.nomoreparties.co/v1/cohort-57/cards", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: this._headers
+    }).then(this._resToJSON)
+    .then(this.fixIdProperty);
+  }
 }
 
 const api = new Api({

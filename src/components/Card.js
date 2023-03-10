@@ -1,7 +1,7 @@
 import React from "react";
 import {CurrentUserContext} from "../contexts/CurrentUserContext"
 
-function Card({ onCardClick, onCardLike, onCarDislike, card}) {
+function Card({ onCardClick, onCardLike, onCarDislike, card, onCardDelete}) {
   const currentUser = React.useContext(CurrentUserContext);
   const isOwn = card.owner._id === currentUser._id;
   const isLiked = card.likes.some(i => i._id === currentUser._id);
@@ -22,7 +22,7 @@ function Card({ onCardClick, onCardLike, onCarDislike, card}) {
 
   return (
     <section className="mesto__element">
-      {isOwn &&<button type="button" className="mesto__delete" onClick={""}/>}
+      {isOwn &&<button type="button" className="mesto__delete" onClick={onCardDelete}/>}
       <img
         className="mesto__img"
         src={card.link}

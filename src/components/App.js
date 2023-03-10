@@ -82,7 +82,8 @@ function App() {
           </>
         </Main>
         <Footer></Footer>
-
+        
+        {/* Редактировать профиль */}
         <PopupWithForm
           title="Редактировать профиль"
           name="profilePopup"
@@ -118,6 +119,7 @@ function App() {
           </>
         </PopupWithForm>
 
+        {/* новая карточка */}
         <PopupWithForm
           title="Новое место"
           name="cardPopup"
@@ -151,7 +153,8 @@ function App() {
           </>
         </PopupWithForm>
 
-        <PopupWithForm
+        {/* обновить пользователя */}
+        <PopupWithForm 
           title="Обновить аватар"
           name="changeAvatar"
           isOpen={isEditAvatarPopupOpen}

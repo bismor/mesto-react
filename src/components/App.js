@@ -2,6 +2,7 @@ import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import Card from "./Card";
+import EditProfilePopup from "./EditProfilePopup"
 import {CurrentUserContext} from "../contexts/CurrentUserContext"
 import React, { useCallback, useState, useEffect } from "react";
 
@@ -9,6 +10,8 @@ import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import "../App.css";
 import api from "../utils/Api";
+
+
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -95,8 +98,12 @@ function App() {
         </Main>
         <Footer></Footer>
 
+        <EditProfilePopup
+         isOpen={isEditProfilePopupOpen}
+         onClose={closeAllPopups}
+        /> 
         {/* Редактировать профиль */}
-        <PopupWithForm
+        {/* <PopupWithForm
           title="Редактировать профиль"
           name="profilePopup"
           isOpen={isEditProfilePopupOpen}
@@ -129,7 +136,7 @@ function App() {
               <span className="popup__input-error"></span>
             </section>
           </>
-        </PopupWithForm>
+        </PopupWithForm> */}
 
         {/* новая карточка */}
         <PopupWithForm
@@ -192,5 +199,7 @@ function App() {
     </CurrentUserContext.Provider>
   );
 }
+
+
 
 export default App;

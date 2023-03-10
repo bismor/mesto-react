@@ -1,20 +1,25 @@
 import React from "react";
-import { CardContext } from "../contexts/CardContext";
 import {CurrentUserContext} from "../contexts/CurrentUserContext"
 
-function Card({ onCardClick }) {
-  const card = React.useContext(CardContext);
+function Card({ onCardClick, onCardLike, onCarDislike, card}) {
   const currentUser = React.useContext(CurrentUserContext);
   const isOwn = card.owner._id === currentUser._id;
   const isLiked = card.likes.some(i => i._id === currentUser._id);
-  const cardLikeButtonClassName = ( 
-    `mesto__like ${isLiked && 'mesto__like-active'}` 
-  );
+  const cardLikeButtonClassName = `mesto__like ${isLiked && 'mesto__like-active'}`;
+
+  function handleLikeClick() {
+    if (isLiked) {
+      onCarDislike(card)
+    } else {
+      onCardLike(card)
+    }
+  }
 
   function handleClick() {
     const cardInfo = { link: card.link, name: card.name };
     onCardClick(cardInfo);
   }
+
   return (
     <section className="mesto__element">
       {isOwn &&<button type="button" className="mesto__delete" onClick={""}/>}
@@ -28,7 +33,7 @@ function Card({ onCardClick }) {
       <div className="reaction">
         <h2 className="mesto__title">{card.name}</h2>
         <div className="like">
-          <button type="button" className={cardLikeButtonClassName}></button>
+          <button type="button" className={cardLikeButtonClassName} onClick={handleLikeClick}></button>
           <div className="like__score">{card.likes.length}</div>
         </div>
       </div>

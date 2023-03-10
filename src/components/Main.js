@@ -1,16 +1,10 @@
 import plus from "../images/plus.svg";
 import pencil from "../images/pencil.svg";
 import React from "react";
-import {CurrentUserContext} from "../contexts/CurrentUserContext"
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 // import avatar from '../images/avatar.png'
 
-
-function Main({
-  onEditAvatar,
-  onEditProfile,
-  onAddPlace,
-  children,
-}) {
+function Main({ onEditAvatar, onEditProfile, onAddPlace, children }) {
   const user = React.useContext(CurrentUserContext);
   return (
     <main className="main">

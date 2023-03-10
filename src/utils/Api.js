@@ -8,6 +8,11 @@ class Api {
     };
   }
 
+  fixIdProperty(obj) { 
+    return {...obj, id: obj._id}
+  }
+
+
   _resToJSON(res) {
     if (res.ok) {
       return res.json();
@@ -18,13 +23,32 @@ class Api {
   getInitialCards() {
     return fetch(`${this._baseUrl}cards`, {
       headers: this._headers,
-    }).then(this._resToJSON);
+    }).then(this._resToJSON)
+    .then(res => res.map(this.fixIdProperty));
   }
 
   getUserInfo () {
     return fetch("https://nomoreparties.co/v1/cohort-57/users/me", {
       headers: this._headers,
     }).then(this._resToJSON);
+  }
+
+  addLikeCard(id) {
+    return fetch("https://mesto.nomoreparties.co/v1/cohort-57/cards/"+id+"/likes", {
+      method: "PUT",
+      headers: this._headers
+    })
+    .then(this._resToJSON)
+    .then(this.fixIdProperty)
+  }
+
+  removeLikeCard(id) {
+    return fetch("https://mesto.nomoreparties.co/v1/cohort-57/cards/"+id+"/likes", {
+      method: "DELETE",
+      headers: this._headers
+    })
+    .then(this._resToJSON)
+    .then(this.fixIdProperty);
   }
 }
 

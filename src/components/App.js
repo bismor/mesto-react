@@ -3,7 +3,7 @@ import Main from "./Main";
 import Footer from "./Footer";
 import Card from "./Card";
 import {CurrentUserContext} from "../contexts/CurrentUserContext"
-import { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
@@ -42,24 +42,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    api.getProfileInformation()
-    .then((data) => {
-      setUserAvatar(() => {
-        return data.avatar;
-      });
-      setUserDescription(() => {
-        return data.about;
-      });
-      setUserName(() => {
-        return data.name;
-      });
-    })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    })
-  }, []);
-
-  useEffect(() => {
     const getCardsData = async () =>  {
       try {
         const cards = await api.getInitialCards();
@@ -86,9 +68,6 @@ function App() {
           onEditAvatar={setIsEditAvatarPopupOpen}
           onEditProfile={setIsEditProfilePopupOpen}
           onAddPlace={setIsAddPlacePopupOpen}
-          onUserAvatar={userAvatar}
-          onUserDescription={userDescription}
-          onUserName={userName}
         >
           <>
             {cards.map((cardData) => (

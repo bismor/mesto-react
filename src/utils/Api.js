@@ -21,12 +21,6 @@ class Api {
     }).then(this._resToJSON);
   }
 
-  getProfileInformation() {
-    return fetch("https://nomoreparties.co/v1/cohort-57/users/me", {
-      headers: this._headers,
-    }).then(this._resToJSON);
-  }
-
   getUserInfo () {
     return fetch("https://nomoreparties.co/v1/cohort-57/users/me", {
       headers: this._headers,

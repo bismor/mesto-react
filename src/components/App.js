@@ -3,6 +3,7 @@ import Main from "./Main";
 import Footer from "./Footer";
 import Card from "./Card";
 import {CurrentUserContext} from "../contexts/CurrentUserContext"
+import {CardContext} from "../contexts/CardContext"
 import React, { useCallback, useState, useEffect } from "react";
 
 import PopupWithForm from "./PopupWithForm";
@@ -12,9 +13,9 @@ import api from "../utils/Api";
 
 function App() {
   const [cards, setCards] = useState([]);
-  const [userName, setUserName] = useState("");
-  const [userDescription, setUserDescription] = useState("");
-  const [userAvatar, setUserAvatar] = useState("");
+  // const [userName, setUserName] = useState("");
+  // const [userDescription, setUserDescription] = useState("");
+  // const [userAvatar, setUserAvatar] = useState("");
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -71,11 +72,11 @@ function App() {
         >
           <>
             {cards.map((cardData) => (
+              <CardContext.Provider value={cardData}>
               <Card
-                key={cardData.id}
-                card={cardData}
                 onCardClick={handleCardClick}
               ></Card>
+              </CardContext.Provider >
             ))}
           </>
         </Main>

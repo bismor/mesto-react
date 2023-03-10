@@ -1,6 +1,10 @@
-function Card({ card, onCardClick }) {
+import React from "react";
+import { CardContext } from "../contexts/CardContext";
+
+function Card({ onCardClick }) {
+  const card = React.useContext(CardContext);
   function handleClick() {
-    const cardInfo={link: card.link, name: card.name}
+    const cardInfo = { link: card.link, name: card.name };
     onCardClick(cardInfo);
   }
 

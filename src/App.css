@@ -45,6 +45,7 @@
 @import url("../src/blocks/profile/__pencil/profile__pencil.css");
 @import url("../src/blocks/popup/__contcard/popup__contcard.css");
 @import url("../src/blocks/popup/__input/popup__input-error.css");
+@import url("../src/blocks/popup/__shadow/popup__shadow.css");
 
 @import url("../src/blocks/like/like.css");
 @import url("../src/blocks/like/__score/like__score.css");

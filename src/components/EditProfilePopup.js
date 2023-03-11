@@ -1,8 +1,8 @@
 import PopupWithForm from "./PopupWithForm";
-import React, {useState} from "react";
-import {CurrentUserContext} from "../contexts/CurrentUserContext"
+import React, { useState } from "react";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
+function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   const [userName, setUserName] = useState("");
   const [userDescription, setUserDescription] = useState("");
   const currentUser = React.useContext(CurrentUserContext);
@@ -29,7 +29,7 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
       name: userName,
       about: userDescription,
     });
-    onClose()
+    onClose();
   }
 
   return (
@@ -45,7 +45,6 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
         <section className="popup__section">
           <input
             onChange={handleChangeName}
-            value={userName}
             type="text"
             name="name"
             className="popup__text popup__name"
@@ -59,7 +58,6 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
         <section className="popup__section">
           <input
             onChange={handleChangeDescription}
-            value={userDescription}
             type="url"
             name="about"
             className="popup__text popup__job"
@@ -70,7 +68,7 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
         </section>
       </>
     </PopupWithForm>
-  )
+  );
 }
 
 export default EditProfilePopup;

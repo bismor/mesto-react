@@ -9,10 +9,6 @@ function EditAvatarPopup ({isOpen, onClose, onUpdateAvatar}) {
     setUserAvatar(currentUser.avatar);
   }, [currentUser]);
 
-  function handleChangeAvatar(e) {
-    setUserAvatar(e.target.value);
-  }
-
   function handleSubmit(e) {
     // Запрещаем браузеру переходить по адресу формы
     e.preventDefault();
@@ -37,8 +33,6 @@ function EditAvatarPopup ({isOpen, onClose, onUpdateAvatar}) {
       <>
         <section className="popup__section">
           <input
-            onChange={handleChangeAvatar}
-            value={userAvatar}
             type="url"
             name="avatar"
             className="popup__text popup__job"

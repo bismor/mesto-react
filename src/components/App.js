@@ -15,7 +15,6 @@ import api from "../utils/Api";
 function App() {
   const [cards, setCards] = useState([]);
 
-  // const [userAvatar, setUserAvatar] = useState("");
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -82,6 +81,17 @@ function App() {
     })
   }
 
+  function handleUpdateAvatar(userAvatar) {
+    api.setUserAvatar(userAvatar).then((data) => {
+      setCurrentUser(() => {
+        return data;
+      })
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    })
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -112,32 +122,44 @@ function App() {
           onUpdateUser={handleUpdateUser}
         />
 
-        <EditAvatarPopup
-          isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
-        />
-
-        {/* обновить пользователя */}
         <PopupWithForm
-          title="Обновить аватар"
-          name="changeAvatar"
+            title="Новое место"
+            name="cardPopup"
+            isOpen={isAddPlacePopupOpen}
+            onClose={closeAllPopups}
+            buttonText="Сохранить"
+          >
+            <>
+              <section className="popup__section">
+                <input
+                  type="text"
+                  name="name"
+                  className="popup__text popup__name"
+                  placeholder="Название"
+                  required
+                  minLength={2}
+                  maxLength={30}
+                />
+                <span className="popup__input-error"></span>
+              </section>
+              <section className="popup__section">
+                <input
+                  type="url"
+                  name="about"
+                  className="popup__text popup__job"
+                  placeholder="Ссылка на картинку"
+                  required
+                />
+                <span className="popup__input-error"></span>
+              </section>
+            </>
+          </PopupWithForm>
+
+        <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
-          buttonText="Сохранить"
-        >
-          <>
-            <section className="popup__section">
-              <input
-                type="url"
-                name="avatar"
-                className="popup__text popup__job"
-                placeholder="Ссылка на картинку"
-                required
-              />
-              <span className="popup__input-error"></span>
-            </section>
-          </>
-        </PopupWithForm>
+          onUpdateAvatar={handleUpdateAvatar}
+        />
 
         <ImagePopup onClose={closeAllPopups} card={selectedCard}></ImagePopup>
       </div>

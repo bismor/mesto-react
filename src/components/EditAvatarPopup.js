@@ -1,38 +1,54 @@
 import PopupWithForm from "./PopupWithForm";
-function EditAvatarPopup ({isOpen, onClose}) {
+import React, {useState} from "react";
+import {CurrentUserContext} from "../contexts/CurrentUserContext"
+
+function EditAvatarPopup ({isOpen, onClose, onUpdateAvatar}) {
+  const [userAvatar, setUserAvatar] = useState("");
+  const currentUser = React.useContext(CurrentUserContext);
+  React.useEffect(() => {
+    setUserAvatar(currentUser.avatar);
+  }, [currentUser]);
+
+  function handleChangeAvatar(e) {
+    setUserAvatar(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    // Запрещаем браузеру переходить по адресу формы
+    e.preventDefault();
+
+    // Передаём значения управляемых компонентов во внешний обработчик
+    onUpdateAvatar({
+      avatar: userAvatar,
+    });
+    onClose()
+  }
+
+
   return (
-  <PopupWithForm
-    title="Новое место"
-    name="cardPopup"
-    isOpen={isOpen}
-    onClose={onClose}
-    buttonText="Сохранить"
-  >
-    <>
-      <section className="popup__section">
-        <input
-          type="text"
-          name="name"
-          className="popup__text popup__name"
-          placeholder="Название"
-          required
-          minLength={2}
-          maxLength={30}
-        />
-        <span className="popup__input-error"></span>
-      </section>
-      <section className="popup__section">
-        <input
-          type="url"
-          name="about"
-          className="popup__text popup__job"
-          placeholder="Ссылка на картинку"
-          required
-        />
-        <span className="popup__input-error"></span>
-      </section>
-    </>
-  </PopupWithForm>
+    <PopupWithForm
+      title="Обновить аватар"
+      name="changeAvatar"
+      isOpen={isOpen}
+      onClose={onClose}
+      buttonText="Сохранить"
+      onSubmit={handleSubmit}
+    >
+      <>
+        <section className="popup__section">
+          <input
+            onChange={handleChangeAvatar}
+            value={userAvatar}
+            type="url"
+            name="avatar"
+            className="popup__text popup__job"
+            placeholder="Ссылка на картинку"
+            required
+          />
+          <span className="popup__input-error"></span>
+        </section>
+      </>
+    </PopupWithForm>
   )
 }
 

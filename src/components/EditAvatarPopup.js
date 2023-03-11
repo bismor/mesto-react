@@ -39,7 +39,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
         <section className="popup__section">
           <input
             onChange={handleChangeAvatar}
-            value=""
+            value={userAvatar}
             type="url"
             name="avatar"
             className="popup__text popup__job"

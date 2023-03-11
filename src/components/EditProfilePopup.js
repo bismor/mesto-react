@@ -1,8 +1,10 @@
 import PopupWithForm from "./PopupWithForm";
 
-function EditProfilePopup() {
+function EditProfilePopup({isOpen, onClose}) {
   return (
     <PopupWithForm
+      isOpen={isOpen}
+      onClose={onClose}
       title="Новое место"
       name="cardPopup"
       buttonText="Сохранить"

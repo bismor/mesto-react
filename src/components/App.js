@@ -90,6 +90,7 @@ function App() {
         setCurrentUser(() => {
           return data;
         });
+        closeAllPopups()
       })
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
@@ -103,6 +104,7 @@ function App() {
         setCurrentUser(() => {
           return data;
         });
+        closeAllPopups()
       })
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
@@ -114,6 +116,7 @@ function App() {
       .addCard(newcard)
       .then((data) => {
         setCards([data, ...cards]);
+        closeAllPopups()
       })
       .catch((err) => {
         console.log(err);

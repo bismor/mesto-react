@@ -1,12 +1,15 @@
 import PopupWithForm from "./PopupWithForm";
-import React, {useState} from "react";
-import {CurrentUserContext} from "../contexts/CurrentUserContext"
+import React, { useState } from "react";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function EditAvatarPopup ({isOpen, onClose, onUpdateAvatar}) {
+function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   const [userAvatar, setUserAvatar] = useState("");
   const currentUser = React.useContext(CurrentUserContext);
+
   React.useEffect(() => {
-    setUserAvatar(currentUser.avatar);
+    if (currentUser) {
+      setUserAvatar(currentUser.avatar);
+    }
   }, [currentUser]);
 
   function handleSubmit(e) {
@@ -17,9 +20,12 @@ function EditAvatarPopup ({isOpen, onClose, onUpdateAvatar}) {
     onUpdateAvatar({
       avatar: userAvatar,
     });
-    onClose()
+    onClose();
   }
 
+  function handleChangeAvatar(e) {
+    setUserAvatar(e.target.value);
+  }
 
   return (
     <PopupWithForm
@@ -33,6 +39,8 @@ function EditAvatarPopup ({isOpen, onClose, onUpdateAvatar}) {
       <>
         <section className="popup__section">
           <input
+            onChange={handleChangeAvatar}
+            value=""
             type="url"
             name="avatar"
             className="popup__text popup__job"
@@ -43,7 +51,7 @@ function EditAvatarPopup ({isOpen, onClose, onUpdateAvatar}) {
         </section>
       </>
     </PopupWithForm>
-  )
+  );
 }
 
-export default EditAvatarPopup
+export default EditAvatarPopup;

@@ -1,7 +1,6 @@
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import Card from "./Card";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
@@ -131,19 +130,12 @@ function App() {
           onEditAvatar={setIsEditAvatarPopupOpen}
           onEditProfile={setIsEditProfilePopupOpen}
           onAddPlace={setIsAddPlacePopupOpen}
+          onCardClick={handleCardClick}
+          onCardLike={handleCardLike}
+          onCarDislike={handleCardDisLike}
+          onCardDelete={handleCardDelete}
+          cards={cards}
         >
-          <>
-            {cards.map((cardData) => (
-              <Card
-                card={cardData}
-                key={cardData.id}
-                onCardClick={handleCardClick}
-                onCardLike={handleCardLike}
-                onCarDislike={handleCardDisLike}
-                onCardDelete={handleCardDelete}
-              ></Card>
-            ))}
-          </>
         </Main>
         <Footer></Footer>
 

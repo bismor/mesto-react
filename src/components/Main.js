@@ -2,9 +2,9 @@ import plus from "../images/plus.svg";
 import pencil from "../images/pencil.svg";
 import React from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import avatar from '../images/avatar.png'
+import Card from "./Card";
 
-function Main({ onEditAvatar, onEditProfile, onAddPlace, children }) {
+function Main({ onEditAvatar, onEditProfile, onAddPlace, cards, onCardClick, onCardLike, onCarDislike, onCardDelete}) {
   const user = React.useContext(CurrentUserContext);
 
   return (
@@ -44,7 +44,18 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, children }) {
         </button>
       </section>
       <section className="mesto">
-        <ul className="mesto__ul">{children}</ul>
+        <ul className="mesto__ul">
+        {cards.map((cardData) => (
+          <Card
+            card={cardData}
+            key={cardData.id}
+            onCardClick={onCardClick}
+            onCardLike={onCardLike}
+            onCarDislike={onCarDislike}
+            onCardDelete={onCardDelete}
+          ></Card>
+        ))}
+        </ul>
       </section>
     </main>
   );

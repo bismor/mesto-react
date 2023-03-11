@@ -1,6 +1,37 @@
 import PopupWithForm from "./PopupWithForm";
+import React, {useState} from "react";
+import {CurrentUserContext} from "../contexts/CurrentUserContext"
 
-function EditProfilePopup({isOpen, onClose}) {
+function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
+  const [userName, setUserName] = useState("");
+  const [userDescription, setUserDescription] = useState("");
+  const currentUser = React.useContext(CurrentUserContext);
+
+  React.useEffect(() => {
+    setUserName(currentUser.name);
+    setUserDescription(currentUser.about);
+  }, [currentUser]);
+
+  function handleChangeName(e) {
+    setUserName(e.target.value);
+  }
+
+  function handleChangeDescription(e) {
+    setUserDescription(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    // Запрещаем браузеру переходить по адресу формы
+    e.preventDefault();
+
+    // Передаём значения управляемых компонентов во внешний обработчик
+    onUpdateUser({
+      name: userName,
+      about: userDescription,
+    });
+    onClose()
+  }
+
   return (
     <PopupWithForm
       isOpen={isOpen}
@@ -8,10 +39,13 @@ function EditProfilePopup({isOpen, onClose}) {
       title="Новое место"
       name="cardPopup"
       buttonText="Сохранить"
+      onSubmit={handleSubmit}
     >
       <>
         <section className="popup__section">
           <input
+            onChange={handleChangeName}
+            value={userName}
             type="text"
             name="name"
             className="popup__text popup__name"
@@ -24,6 +58,8 @@ function EditProfilePopup({isOpen, onClose}) {
         </section>
         <section className="popup__section">
           <input
+            onChange={handleChangeDescription}
+            value={userDescription}
             type="url"
             name="about"
             className="popup__text popup__job"

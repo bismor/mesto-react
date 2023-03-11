@@ -67,6 +67,18 @@ class Api {
     }).then(this._resToJSON)
     .then(this.fixIdProperty);
   }
+
+  setUserInfo(formvalue) {
+    return fetch("https://mesto.nomoreparties.co/v1/cohort-57/users/me", {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: formvalue.name,
+        about: formvalue.about
+      })
+    })
+    .then(this._resToJSON)
+  }
 }
 
 const api = new Api({

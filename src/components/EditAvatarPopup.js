@@ -1,12 +1,11 @@
 import PopupWithForm from "./PopupWithForm";
-
-function EditAvatarPopup ({}) {
+function EditAvatarPopup ({isOpen, onClose}) {
   return (
   <PopupWithForm
     title="Новое место"
     name="cardPopup"
-    isOpen={isAddPlacePopupOpen}
-    onClose={closeAllPopups}
+    isOpen={isOpen}
+    onClose={onClose}
     buttonText="Сохранить"
   >
     <>

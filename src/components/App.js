@@ -105,7 +105,7 @@ function App() {
         />
 
         <EditAvatarPopup
-          isOpen={isEditAvatarPopupOpen}
+          isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
         />
 

@@ -2,10 +2,11 @@ import plus from "../images/plus.svg";
 import pencil from "../images/pencil.svg";
 import React from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
-// import avatar from '../images/avatar.png'
+import avatar from '../images/avatar.png'
 
 function Main({ onEditAvatar, onEditProfile, onAddPlace, children }) {
   const user = React.useContext(CurrentUserContext);
+
   return (
     <main className="main">
       <section className="profile">
@@ -16,10 +17,10 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, children }) {
             onClick={() => onEditAvatar(true)}
           >
             <div className="profile__changeavatar"></div>
-            <img className="profile__avatar" src={user.avatar} alt="Аватар" />
+            <img className="profile__avatar" src={user?.avatar} alt="Аватар" />
           </button>
           <div className="profile__info">
-            <h1 className="profile__title">{user.name}</h1>
+            <h1 className="profile__title">{user?.name}</h1>
             <button
               type="button"
               className="profile__button"
@@ -31,7 +32,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, children }) {
                 alt="Редактировать"
               />
             </button>
-            <p className="profile__subtitle">{user.about}</p>
+            <p className="profile__subtitle">{user?.about}</p>
           </div>
         </div>
         <button

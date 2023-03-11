@@ -6,6 +6,7 @@
 
 @media screen and (min-width: 1280px) {
   .main {
+    width: 100%;
     max-width: 880px;
     padding-top: 36.25px;
   }

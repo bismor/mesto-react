@@ -8,9 +8,10 @@ class Api {
     };
   }
 
+  //Эта функция заменяет в объекте ID с нижним подчеркиванием на обычное id. используется только для карточек
   fixIdProperty(obj) {
     return { ...obj, id: obj._id };
-  }
+  } 
 
   _resToJSON(res) {
     if (res.ok) {

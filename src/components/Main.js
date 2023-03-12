@@ -45,16 +45,17 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, cards, onCardClick, onC
       </section>
       <section className="mesto">
         <ul className="mesto__ul">
-        {cards.map((cardData) => (
-          <Card
-            card={cardData}
-            key={cardData.id}
-            onCardClick={onCardClick}
-            onCardLike={onCardLike}
-            onCarDislike={onCarDislike}
-            onCardDelete={onCardDelete}
-          ></Card>
-        ))}
+          {cards.map((cardData) => (
+            <li key={cardData.id}>
+              <Card
+                card={cardData}
+                onCardClick={onCardClick}
+                onCardLike={onCardLike}
+                onCarDislike={onCarDislike}
+                onCardDelete={onCardDelete}
+              ></Card>
+            </li>
+          ))}
         </ul>
       </section>
     </main>

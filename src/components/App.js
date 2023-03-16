@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+import Authorization from "./Authorization"
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import React, { useCallback, useState, useEffect } from "react";
 import ImagePopup from "./ImagePopup";
@@ -126,7 +127,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Header></Header>
-        <Main
+        {/* <Main
           onEditAvatar={setIsEditAvatarPopupOpen}
           onEditProfile={setIsEditProfilePopupOpen}
           onAddPlace={setIsAddPlacePopupOpen}
@@ -137,7 +138,9 @@ function App() {
           cards={cards}
         >
         </Main>
-        <Footer></Footer>
+        <Footer></Footer> */}
+
+        <Authorization></Authorization>
 
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}

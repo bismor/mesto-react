@@ -54,6 +54,9 @@
 @import url("../src/blocks/authorization/__section/authorization__section.css");
 @import url("../src/blocks/authorization/__link/authorization__link.css");
 @import url("../src/blocks/header/__button/header__button.css");
+@import url("../src/blocks/popup/__access/popup__access.css");
+@import url("../src/blocks/popup/__sign/popup__sign.css");
+@import url("../src/blocks/popup/__status/popup__status.css");
 
 @import url("../src/blocks/like/like.css");
 @import url("../src/blocks/like/__score/like__score.css");

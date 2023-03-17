@@ -8,3 +8,7 @@
   padding: 14px 0;
   border-radius: 2px;
 }
+
+.authorization__submit:hover {
+  opacity: 85%;
+}

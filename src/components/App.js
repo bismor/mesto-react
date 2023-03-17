@@ -6,13 +6,13 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import Register from "./Register";
 import Login from "./Login";
-import PopupWithAccess from "./InfoTooltip";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import React, { useCallback, useState, useEffect } from "react";
 import ImagePopup from "./ImagePopup";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import {useNavigate, Route, Routes } from "react-router-dom";
 import "../App.css";
 import api from "../utils/Api";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -22,6 +22,28 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState();
   const [loggedIn, setloggedIn] = useState(false);
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    tokenCheck();
+  }, [])
+
+  function tokenCheck() {
+    if (localStorage.getItem('token')){
+      const token = localStorage.getItem('token');
+      if (token) {
+        api.checkJwtToken(token).then((res) => {
+          if (res){
+            const userData = {
+              email: res.data.email,
+            }
+          }
+          setloggedIn(true)
+          navigate('/', {replace: true});
+        })
+      }
+    }
+  }
 
   const handleCardClick = useCallback((CardInfo) => {
     setSelectedCard(CardInfo);
@@ -128,62 +150,73 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
-      <CurrentUserContext.Provider value={currentUser}>
-        <div className="page">
-          <Header></Header>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                loggedIn ? (
-                  <>
-                    <Main
-                      onEditAvatar={setIsEditAvatarPopupOpen}
-                      onEditProfile={setIsEditProfilePopupOpen}
-                      onAddPlace={setIsAddPlacePopupOpen}
-                      onCardClick={handleCardClick}
-                      onCardLike={handleCardLike}
-                      onCarDislike={handleCardDisLike}
-                      onCardDelete={handleCardDelete}
-                      cards={cards}
-                    ></Main>
-                    <Footer></Footer>
-                  </>
-                ) : (
-                  <Navigate to="/sign-in" replace />
-                )
-              }
-            />
-            <Route path="/sign-in" element={<Login name="Войти" button="Войти"></Login>} />
-            <Route path="/sign-up" element={<Register name="Регистрация" button="Зарегистрироваться"></Register>} />
-          </Routes>
-
-          <PopupWithAccess></PopupWithAccess>
-
-          <EditProfilePopup
-            isOpen={isEditProfilePopupOpen}
-            onClose={closeAllPopups}
-            onUpdateUser={handleUpdateUser}
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="page">
+        <Header setloggedIn={setloggedIn}></Header>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute
+                loggedIn={loggedIn}
+                onEditAvatar={setIsEditAvatarPopupOpen}
+                onEditProfile={setIsEditProfilePopupOpen}
+                onAddPlace={setIsAddPlacePopupOpen}
+                onCardClick={handleCardClick}
+                onCardLike={handleCardLike}
+                onCarDislike={handleCardDisLike}
+                onCardDelete={handleCardDelete}
+                cards={cards}
+                element={Main}
+              ></ProtectedRoute>
+            }
           />
-
-          <AddPlacePopup
-            isOpen={isAddPlacePopupOpen}
-            onClose={closeAllPopups}
-            onAddPlace={handleAddPlaceSubmit}
+          <Route
+            path="/sign-in"
+            element={
+              <Login
+                name="Войти"
+                button="Войти"
+                setloggedIn={setloggedIn}
+              ></Login>
+            }
           />
-
-          <EditAvatarPopup
-            isOpen={isEditAvatarPopupOpen}
-            onClose={closeAllPopups}
-            onUpdateAvatar={handleUpdateAvatar}
+          <Route
+            path="/sign-up"
+            element={
+              <Register
+                name="Регистрация"
+                button="Зарегистрироваться"
+              ></Register>
+            }
           />
+        </Routes>
+        <Footer></Footer>
 
-          <ImagePopup onClose={closeAllPopups} card={selectedCard}></ImagePopup>
-        </div>
-      </CurrentUserContext.Provider>
-    </BrowserRouter>
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}
+        />
+
+        <AddPlacePopup
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+          onAddPlace={handleAddPlaceSubmit}
+        />
+
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
+        />
+
+        <ImagePopup onClose={closeAllPopups} card={selectedCard}></ImagePopup>
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
+
+
 
 export default App;

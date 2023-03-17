@@ -1,11 +1,17 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function Login({ name, button }) {
+import api from "../utils/Api";
+
+
+
+function Login({ name, button, setloggedIn}) {
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -16,12 +22,30 @@ function Login({ name, button }) {
     });
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!formValue.email || !formValue.password){
+      return;
+    }
+    api.signIn(formValue.email, formValue.password)
+      .then((data) => {
+        if (data.token){
+          setloggedIn(true)
+          setFormValue({email: '', password: ''});
+          navigate('/', {replace: true});
+          localStorage.setItem('token', data.token);
+        } 
+      })
+      .catch(err => console.log(err));
+  }
+
   return (
     <div className="authorization">
       <p className="authorization__name">{name}</p>
-      <form className="authorization__form">
+      <form className="authorization__form" onSubmit={handleSubmit}>
         <section className="authorization__section">
           <input
+            name="email"
             type="email"
             className="authorization__input"
             placeholder="Email"
@@ -29,6 +53,7 @@ function Login({ name, button }) {
             onChange={handleChange}
           ></input>
           <input
+            name="password"
             type="password"
             className="authorization__input"
             placeholder="Пароль"
@@ -38,9 +63,6 @@ function Login({ name, button }) {
         </section>
         <button className="authorization__submit">{button}</button>
       </form>
-      <Link to="/sign-up" className="authorization__link">
-        Уже зарегистрировались? Войти
-      </Link>
     </div>
   );
 }

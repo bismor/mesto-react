@@ -1,7 +1,16 @@
 import React, { useState } from "react";
+import InfoTooltip from "./InfoTooltip";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import api from "../utils/Api";
 
 function Register({ name, button }) {
+  const [infoTooltip, setInfoTooltip] = useState({
+    visible: 'popup InfoTooltip',
+    pict: "",
+    status: ""
+  })
+
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
@@ -17,23 +26,28 @@ function Register({ name, button }) {
       [name]: value,
     });
   };
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (formValue.password === formValue.confirmPassword){
-  //     const { password, email } = formValue;
-  //     auth.register( password, email).then((res) => {
-  //       navigate('/login', {replace: true});
-  //       }
-  //     );
-  //   }
-  // }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { password, email } = formValue;
+    api.signUp( password, email).then((res) => {
+      navigate('/sign-in', {replace: true})
+      setInfoTooltip({
+        status: "Вы успешно зарегистрировались!",
+        visible: "popup popup_opened InfoTooltip"
+      })
+    })
+    .catch(() => {
+    });
+  }
 
   return (
     <div className="authorization">
       <p className="authorization__name">{name}</p>
-      <form className="authorization__form">
+      <form className="authorization__form" onSubmit={handleSubmit}>
         <section className="authorization__section">
           <input
+            name="email"
             type="email"
             className="authorization__input"
             placeholder="Email"
@@ -41,6 +55,7 @@ function Register({ name, button }) {
             onChange={handleChange}
           ></input>
           <input
+            name="password"
             type="password"
             className="authorization__input"
             placeholder="Пароль"
@@ -50,6 +65,11 @@ function Register({ name, button }) {
         </section>
         <button className="authorization__submit">{button}</button>
       </form>
+      <Link to="/sign-in" className="authorization__link">
+        Уже зарегистрировались? Войти
+      </Link>
+
+      <InfoTooltip status={infoTooltip.status} visible={infoTooltip.visible}></InfoTooltip>
     </div>
   );
 }

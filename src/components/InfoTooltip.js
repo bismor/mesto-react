@@ -1,7 +1,7 @@
 import close from "../images/Close.png";
 import sign from "../images/checkmark.png"
 
-function PopupWithAccess() {
+function InfoTooltip () {
   return (
     <div className="popup">
       <div className="popup__access">
@@ -15,4 +15,4 @@ function PopupWithAccess() {
   )
 }
 
-export default PopupWithAccess
+export default InfoTooltip 

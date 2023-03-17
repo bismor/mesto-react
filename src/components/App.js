@@ -4,8 +4,9 @@ import Footer from "./Footer";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
-import Authorization from "./Authorization";
-import PopupWithAccess from "./PopupWithAccess";
+import Register from "./Register";
+import Login from "./Login";
+import PopupWithAccess from "./InfoTooltip";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import React, { useCallback, useState, useEffect } from "react";
 import ImagePopup from "./ImagePopup";
@@ -154,8 +155,8 @@ function App() {
                 )
               }
             />
-            <Route path="/sign-in" element={<Authorization name="Войти" button="Войти"></Authorization>} />
-            <Route path="/sign-up" element={<Authorization name="Регистрация" button="Зарегистрироваться"/>} />
+            <Route path="/sign-in" element={<Login name="Войти" button="Войти"></Login>} />
+            <Route path="/sign-up" element={<Register name="Регистрация" button="Зарегистрироваться"></Register>} />
           </Routes>
 
           <PopupWithAccess></PopupWithAccess>

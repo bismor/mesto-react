@@ -6,7 +6,7 @@ import Card from "./Card";
 import Header from "./Header";
 import { useNavigate } from "react-router-dom";
 
-function Main({ onEditAvatar, onEditProfile, onAddPlace, cards, onCardClick, onCardLike, onCarDislike, onCardDelete, setloggedIn}) {
+function Main({ onEditAvatar, onEditProfile, onAddPlace, cards, onCardClick, onCardLike, onCarDislike, onCardDelete, setloggedIn, setUserEmail}) {
   const user = React.useContext(CurrentUserContext);
   const navigate = useNavigate()
 
@@ -18,7 +18,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, cards, onCardClick, onC
 
   return (
     <>
-      <Header onClick={handleSignout} nameClick="Выйти"></Header>
+      <Header onClick={handleSignout} nameClick="Выйти" setUserEmail={setUserEmail}></Header>
       <main className="main">
         <section className="profile">
           <div className="info">

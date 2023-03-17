@@ -7,10 +7,10 @@ import Header from "./Header";
 
 function Register({ name, button }) {
   const [infoTooltip, setInfoTooltip] = useState({
-    visible: 'popup InfoTooltip',
+    visible: "popup InfoTooltip",
     pict: "",
-    status: ""
-  })
+    status: "",
+  });
 
   const [formValue, setFormValue] = useState({
     email: "",
@@ -31,24 +31,25 @@ function Register({ name, button }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { password, email } = formValue;
-    api.signUp( password, email).then((res) => {
-      navigate('/sign-in', {replace: true})
-      setInfoTooltip({
-        status: "Вы успешно зарегистрировались!",
-        visible: "popup popup_opened InfoTooltip"
+    api
+      .signUp(password, email)
+      .then((res) => {
+        navigate("/sign-in", { replace: true });
+        setInfoTooltip({
+          status: "Вы успешно зарегистрировались!",
+          visible: "popup popup_opened InfoTooltip",
+        });
       })
-    })
-    .catch(() => {
-    });
-  }
+      .catch(() => {});
+  };
 
-  function navRegister(){
-    navigate('/sign-in', {replace: true});
+  function navRegister() {
+    navigate("/sign-in", { replace: true });
   }
 
   return (
     <>
-      <Header onClick={navRegister} nameClick="Войти"></Header>
+      <Header onClick={navRegister} nameClick="Войти" setUserEmail=""></Header>
       <div className="authorization">
         <p className="authorization__name">{name}</p>
         <form className="authorization__form" onSubmit={handleSubmit}>
@@ -76,7 +77,10 @@ function Register({ name, button }) {
           Уже зарегистрировались? Войти
         </Link>
 
-        <InfoTooltip status={infoTooltip.status} visible={infoTooltip.visible}></InfoTooltip>
+        <InfoTooltip
+          status={infoTooltip.status}
+          visible={infoTooltip.visible}
+        ></InfoTooltip>
       </div>
     </>
   );

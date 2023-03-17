@@ -9,7 +9,7 @@ import Login from "./Login";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import React, { useCallback, useState, useEffect } from "react";
 import ImagePopup from "./ImagePopup";
-import {useNavigate, Route, Routes } from "react-router-dom";
+import { useNavigate, Route, Routes } from "react-router-dom";
 import "../App.css";
 import api from "../utils/Api";
 import ProtectedRoute from "./ProtectedRoute";
@@ -22,25 +22,24 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState();
   const [loggedIn, setloggedIn] = useState(false);
-  const navigate = useNavigate()
+  const [userEmail, setUseremail] = useState('')
+  const navigate = useNavigate();
 
   useEffect(() => {
     tokenCheck();
-  }, [])
+  }, []);
 
   function tokenCheck() {
-    if (localStorage.getItem('token')){
-      const token = localStorage.getItem('token');
+    if (localStorage.getItem("token")) {
+      const token = localStorage.getItem("token");
       if (token) {
         api.checkJwtToken(token).then((res) => {
-          if (res){
-            const userData = {
-              email: res.data.email,
-            }
+          if (res) {
+            setloggedIn(true);
+            setUseremail(res.data.email)
+            navigate("/", { replace: true });
           }
-          setloggedIn(true)
-          navigate('/', {replace: true});
-        })
+        });
       }
     }
   }
@@ -157,8 +156,9 @@ function App() {
             path="/"
             element={
               <ProtectedRoute
-                setloggedIn={setloggedIn}
                 loggedIn={loggedIn}
+                setUserEmail={userEmail}
+                setloggedIn={setloggedIn}
                 onEditAvatar={setIsEditAvatarPopupOpen}
                 onEditProfile={setIsEditProfilePopupOpen}
                 onAddPlace={setIsAddPlacePopupOpen}
@@ -216,7 +216,5 @@ function App() {
     </CurrentUserContext.Provider>
   );
 }
-
-
 
 export default App;

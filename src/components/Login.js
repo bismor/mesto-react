@@ -46,7 +46,7 @@ function Login({ name, button, setloggedIn}) {
 
   return (
     <>
-      <Header onClick={navRegister} nameClick="Регистрация"></Header>
+      <Header onClick={navRegister} nameClick="Регистрация" setUserEmail=""></Header>
       <div className="authorization">
         <p className="authorization__name">{name}</p>
         <form className="authorization__form" onSubmit={handleSubmit}>

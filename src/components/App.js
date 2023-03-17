@@ -152,12 +152,12 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header setloggedIn={setloggedIn}></Header>
         <Routes>
           <Route
             path="/"
             element={
               <ProtectedRoute
+                setloggedIn={setloggedIn}
                 loggedIn={loggedIn}
                 onEditAvatar={setIsEditAvatarPopupOpen}
                 onEditProfile={setIsEditProfilePopupOpen}

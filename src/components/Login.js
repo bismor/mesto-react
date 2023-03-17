@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "./Header";
 
 import api from "../utils/Api";
 
@@ -39,31 +40,38 @@ function Login({ name, button, setloggedIn}) {
       .catch(err => console.log(err));
   }
 
+  function navRegister(){
+    navigate('/sign-up', {replace: true});
+  }
+
   return (
-    <div className="authorization">
-      <p className="authorization__name">{name}</p>
-      <form className="authorization__form" onSubmit={handleSubmit}>
-        <section className="authorization__section">
-          <input
-            name="email"
-            type="email"
-            className="authorization__input"
-            placeholder="Email"
-            value={formValue.email}
-            onChange={handleChange}
-          ></input>
-          <input
-            name="password"
-            type="password"
-            className="authorization__input"
-            placeholder="Пароль"
-            value={formValue.password}
-            onChange={handleChange}
-          ></input>
-        </section>
-        <button className="authorization__submit">{button}</button>
-      </form>
-    </div>
+    <>
+      <Header onClick={navRegister} nameClick="Регистрация"></Header>
+      <div className="authorization">
+        <p className="authorization__name">{name}</p>
+        <form className="authorization__form" onSubmit={handleSubmit}>
+          <section className="authorization__section">
+            <input
+              name="email"
+              type="email"
+              className="authorization__input"
+              placeholder="Email"
+              value={formValue.email}
+              onChange={handleChange}
+            ></input>
+            <input
+              name="password"
+              type="password"
+              className="authorization__input"
+              placeholder="Пароль"
+              value={formValue.password}
+              onChange={handleChange}
+            ></input>
+          </section>
+          <button className="authorization__submit">{button}</button>
+        </form>
+      </div>
+    </>
   );
 }
 

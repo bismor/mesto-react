@@ -3,7 +3,7 @@ import sign from "../images/checkmark.png"
 
 function PopupWithAccess() {
   return (
-    <div className="popup popup_opened">
+    <div className="popup">
       <div className="popup__access">
         <button type="button" className="popup__close">
           <img className="popup__img" src={close} alt="Закрыть" />

@@ -4,11 +4,12 @@ import Footer from "./Footer";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
-import Authorization from "./Authorization"
-import PopupWithAccess from "./PopupWithAccess"
+import Authorization from "./Authorization";
+import PopupWithAccess from "./PopupWithAccess";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import React, { useCallback, useState, useEffect } from "react";
 import ImagePopup from "./ImagePopup";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "../App.css";
 import api from "../utils/Api";
 
@@ -19,6 +20,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState();
+  const [loggedIn, setloggedIn] = useState(false);
 
   const handleCardClick = useCallback((CardInfo) => {
     setSelectedCard(CardInfo);
@@ -91,7 +93,7 @@ function App() {
         setCurrentUser(() => {
           return data;
         });
-        closeAllPopups()
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
@@ -105,7 +107,7 @@ function App() {
         setCurrentUser(() => {
           return data;
         });
-        closeAllPopups()
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
@@ -117,7 +119,7 @@ function App() {
       .addCard(newcard)
       .then((data) => {
         setCards([data, ...cards]);
-        closeAllPopups()
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(err);
@@ -125,47 +127,61 @@ function App() {
   }
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      <div className="page">
-        <Header></Header>
-        <Main
-          onEditAvatar={setIsEditAvatarPopupOpen}
-          onEditProfile={setIsEditProfilePopupOpen}
-          onAddPlace={setIsAddPlacePopupOpen}
-          onCardClick={handleCardClick}
-          onCardLike={handleCardLike}
-          onCarDislike={handleCardDisLike}
-          onCardDelete={handleCardDelete}
-          cards={cards}
-        >
-        </Main>
-        <Footer></Footer>
+    <BrowserRouter>
+      <CurrentUserContext.Provider value={currentUser}>
+        <div className="page">
+          <Header></Header>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                loggedIn ? (
+                  <>
+                    <Main
+                      onEditAvatar={setIsEditAvatarPopupOpen}
+                      onEditProfile={setIsEditProfilePopupOpen}
+                      onAddPlace={setIsAddPlacePopupOpen}
+                      onCardClick={handleCardClick}
+                      onCardLike={handleCardLike}
+                      onCarDislike={handleCardDisLike}
+                      onCardDelete={handleCardDelete}
+                      cards={cards}
+                    ></Main>
+                    <Footer></Footer>
+                  </>
+                ) : (
+                  <Navigate to="/sign-in" replace />
+                )
+              }
+            />
+            <Route path="/sign-in" element={<Authorization name="Войти" button="Войти"></Authorization>} />
+            <Route path="/sign-up" element={<Authorization name="Регистрация" button="Зарегистрироваться"/>} />
+          </Routes>
 
-        <PopupWithAccess></PopupWithAccess>
+          <PopupWithAccess></PopupWithAccess>
 
-        {/* <Authorization></Authorization> */}
+          <EditProfilePopup
+            isOpen={isEditProfilePopupOpen}
+            onClose={closeAllPopups}
+            onUpdateUser={handleUpdateUser}
+          />
 
-        <EditProfilePopup
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-          onUpdateUser={handleUpdateUser}
-        />
+          <AddPlacePopup
+            isOpen={isAddPlacePopupOpen}
+            onClose={closeAllPopups}
+            onAddPlace={handleAddPlaceSubmit}
+          />
 
-        <AddPlacePopup
-          isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
-          onAddPlace={handleAddPlaceSubmit}
-        />
+          <EditAvatarPopup
+            isOpen={isEditAvatarPopupOpen}
+            onClose={closeAllPopups}
+            onUpdateAvatar={handleUpdateAvatar}
+          />
 
-        <EditAvatarPopup
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-          onUpdateAvatar={handleUpdateAvatar}
-        />
-
-        <ImagePopup onClose={closeAllPopups} card={selectedCard}></ImagePopup>
-      </div>
-    </CurrentUserContext.Provider>
+          <ImagePopup onClose={closeAllPopups} card={selectedCard}></ImagePopup>
+        </div>
+      </CurrentUserContext.Provider>
+    </BrowserRouter>
   );
 }
 

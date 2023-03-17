@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import InfoTooltip from "./InfoTooltip";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import api from "../utils/Api";
+import auth from "../utils/Auth";
 import Header from "./Header";
 import { createPortal } from "react-dom";
 import ApprovePict from "../images/checkmark.png"
@@ -42,7 +42,7 @@ function Register({ name, button }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { password, email } = formValue;
-    api
+    auth
       .signUp(password, email)
       .then(() => {
         opetTooltip()

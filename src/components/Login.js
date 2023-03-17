@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import InfoTooltip from "./InfoTooltip";
-import api from "../utils/Api";
+import auth from "../utils/Auth";
 import UnapprovePict from "../images/cross.png"
 import { createPortal } from "react-dom";
 
@@ -43,7 +43,7 @@ function Login({ name, button, setloggedIn }) {
     if (!formValue.email || !formValue.password) {
       return;
     }
-    api
+    auth
       .signIn(formValue.email, formValue.password)
       .then((data) => {
         if (data.token) {

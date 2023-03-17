@@ -1,4 +1,3 @@
-import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import EditProfilePopup from "./EditProfilePopup";
@@ -6,6 +5,7 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import Register from "./Register";
 import Login from "./Login";
+import auth from "../utils/Auth";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import React, { useCallback, useState, useEffect } from "react";
 import ImagePopup from "./ImagePopup";
@@ -13,7 +13,6 @@ import { useNavigate, Route, Routes } from "react-router-dom";
 import "../App.css";
 import api from "../utils/Api";
 import ProtectedRoute from "./ProtectedRoute";
-import { createPortal } from "react-dom";
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -35,7 +34,7 @@ function App() {
     if (localStorage.getItem("token")) {
       const token = localStorage.getItem("token");
       if (token) {
-        api.checkJwtToken(token).then((res) => {
+        auth.checkJwtToken(token).then((res) => {
           if (res) {
             setloggedIn(true);
             setUseremail(res.data.email)

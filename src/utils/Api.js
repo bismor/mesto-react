@@ -20,43 +20,6 @@ class Api {
     return Promise.reject("Произошла ошибка");
   }
 
-  signUp(password, email) {
-    return fetch("https://auth.nomoreparties.co/signup", {
-      method: "POST",
-      headers: this._headers,
-      body: JSON.stringify({
-        email: email,
-        password: password
-      }),
-
-    }).then(this._resToJSON)
-  }
-
-  checkJwtToken(token) {
-    return fetch("https://auth.nomoreparties.co/users/me", {
-      method: "GET",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Authorization" : `Bearer ${token}`
-      },
-    })
-    .then(this._resToJSON)
-  }
-
-  signIn(email, password) {
-    return fetch("https://auth.nomoreparties.co/signin", {
-      method: "POST",
-      headers: this._headers,
-      body: JSON.stringify({
-        email: email,
-        password: password
-      }),
-
-    })
-    .then(this._resToJSON)
-  }
-
   getInitialCards() {
     return fetch(`${this._baseUrl}cards`, {
       headers: this._headers,

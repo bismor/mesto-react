@@ -13,6 +13,7 @@ import { useNavigate, Route, Routes } from "react-router-dom";
 import "../App.css";
 import api from "../utils/Api";
 import ProtectedRoute from "./ProtectedRoute";
+import { createPortal } from "react-dom";
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -23,6 +24,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState();
   const [loggedIn, setloggedIn] = useState(false);
   const [userEmail, setUseremail] = useState('')
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -60,6 +62,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    
     setSelectedCard(null);
   }, []);
 

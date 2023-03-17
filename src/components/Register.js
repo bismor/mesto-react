@@ -1,20 +1,22 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import InfoTooltip from "./InfoTooltip";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import api from "../utils/Api";
 import Header from "./Header";
+import { createPortal } from "react-dom";
+import ApprovePict from "../images/checkmark.png"
 
 function Register({ name, button }) {
-  const [infoTooltip, setInfoTooltip] = useState({
-    visible: "popup InfoTooltip",
-    pict: "",
-    status: "",
-  });
-
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
+  });
+  const [infoTooltip, setInfoTooltip] = useState({
+    visible: "popup popup_opened InfoTooltip",
+    images: ApprovePict,
+    status: "Вы успешно зарегистрировались!",
+    isOpen: false,
   });
 
   const navigate = useNavigate();
@@ -28,19 +30,24 @@ function Register({ name, button }) {
     });
   };
 
+  const handleClose = useCallback(() => {
+    setInfoTooltip((s) => ({...s, isOpen: false}));
+    navigate("/sign-in", { replace: true });
+  }, [])
+
+  function opetTooltip() {
+    setInfoTooltip((s) => ({...s, isOpen: true}));
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const { password, email } = formValue;
     api
       .signUp(password, email)
-      .then((res) => {
-        navigate("/sign-in", { replace: true });
-        setInfoTooltip({
-          status: "Вы успешно зарегистрировались!",
-          visible: "popup popup_opened InfoTooltip",
-        });
+      .then(() => {
+        opetTooltip()
       })
-      .catch(() => {});
+      .catch(err => console.log(err));
   };
 
   function navRegister() {
@@ -77,10 +84,15 @@ function Register({ name, button }) {
           Уже зарегистрировались? Войти
         </Link>
 
-        <InfoTooltip
-          status={infoTooltip.status}
-          visible={infoTooltip.visible}
-        ></InfoTooltip>
+        {infoTooltip.isOpen && createPortal(
+          <InfoTooltip
+            status={infoTooltip.status}
+            visible={infoTooltip.visible}
+            images={infoTooltip.images}
+            onClose={handleClose}
+          ></InfoTooltip>,
+          document.body
+        )}
       </div>
     </>
   );
